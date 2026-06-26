@@ -173,6 +173,7 @@ Tags must be objects — not plain strings:
 This project uses [release-please](https://github.com/googleapis/release-please) for automated releases.
 
 - Commits to `main` that follow [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `chore:` etc.) are tracked automatically.
+- All supported Conventional Commit categories (`feat`, `fix`, `perf`, `revert`, `docs`, `style`, `chore`, `refactor`, `test`, `build`, `ci`) are included for release-please changelog generation and Release PR updates.
 - release-please opens a **Release PR** that bumps the version and updates `CHANGELOG.md`.
 - Merging the Release PR creates a **GitHub Release** and triggers an automated **npm publish**.
 
