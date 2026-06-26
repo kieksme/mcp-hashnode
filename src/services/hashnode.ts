@@ -33,8 +33,17 @@ export async function gql<T>(
           Authorization: apiToken,
         },
         timeout: 30_000,
+        maxRedirects: 0,
       }
     );
+
+    if (typeof response.data !== "object" || response.data === null) {
+      throw new Error(
+        "Error: Hashnode API returned an unexpected response (HTML instead of JSON). " +
+          "The GraphQL API requires a Pro plan since May 2026. " +
+          "Upgrade at: https://hashnode.com/settings/billing"
+      );
+    }
 
     if (response.data.errors?.length) {
       const msgs = response.data.errors
@@ -54,6 +63,13 @@ export function normalizeError(error: unknown): Error {
   if (error instanceof AxiosError) {
     if (error.response) {
       switch (error.response.status) {
+        case 301:
+        case 302:
+          return new Error(
+            "Error: Hashnode API requires a Pro plan (since May 2026). " +
+              "The free GraphQL API access has been discontinued. " +
+              "Upgrade at: https://hashnode.com/settings/billing"
+          );
         case 401:
           return new Error(
             "Error: Invalid or missing Hashnode token. " +
