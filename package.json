@@ -1,12 +1,34 @@
 {
   "name": "hashnode-mcp-server",
   "version": "1.0.0",
-  "description": "MCP server for Hashnode GraphQL API — create drafts, publish posts, manage your blog",
+  "description": "MCP server for the Hashnode GraphQL API — create drafts, publish posts, manage your blog via Claude",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
     "hashnode-mcp-server": "dist/index.js"
   },
+  "files": [
+    "dist/",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kieksme/mcp-hashnode.git"
+  },
+  "homepage": "https://github.com/kieksme/mcp-hashnode",
+  "bugs": {
+    "url": "https://github.com/kieksme/mcp-hashnode/issues"
+  },
+  "keywords": [
+    "mcp",
+    "hashnode",
+    "blog",
+    "graphql",
+    "claude",
+    "ai",
+    "model-context-protocol"
+  ],
+  "license": "MIT",
   "scripts": {
     "start": "node dist/index.js",
     "dev": "tsx watch src/index.ts",
