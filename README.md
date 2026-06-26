@@ -37,14 +37,14 @@ npx -y hashnode-mcp-server
 
 **Via global install:**
 ```bash
-npm install -g hashnode-mcp-server
+pnpm add -g hashnode-mcp-server
 ```
 
 **Build from source:**
 ```bash
 git clone https://github.com/kieksme/mcp-hashnode.git
 cd mcp-hashnode
-npm install && npm run build
+pnpm install && pnpm run build
 ```
 
 ### 3. Configure your MCP client
