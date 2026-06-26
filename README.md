@@ -1,5 +1,8 @@
 # hashnode-mcp-server
 
+[![npm version](https://img.shields.io/npm/v/hashnode-mcp-server)](https://www.npmjs.com/package/hashnode-mcp-server)
+[![Release](https://github.com/kieksme/mcp-hashnode/actions/workflows/release.yml/badge.svg)](https://github.com/kieksme/mcp-hashnode/actions/workflows/release.yml)
+
 MCP server for the [Hashnode](https://hashnode.com) GraphQL API.  
 Create drafts, publish posts, manage your blog — all via Claude.
 
@@ -25,13 +28,23 @@ Create drafts, publish posts, manage your blog — all via Claude.
 
 Go to [hashnode.com/settings/developer](https://hashnode.com/settings/developer) and click **Generate new token**.
 
-### 2. Install & build
+### 2. Install
 
+**Via npx (no install needed — recommended):**
+```bash
+npx -y hashnode-mcp-server
+```
+
+**Via global install:**
+```bash
+npm install -g hashnode-mcp-server
+```
+
+**Build from source:**
 ```bash
 git clone https://github.com/kieksme/mcp-hashnode.git
 cd mcp-hashnode
-npm install
-npm run build
+npm install && npm run build
 ```
 
 ### 3. Configure in Claude Desktop
@@ -42,8 +55,8 @@ Add to your `claude_desktop_config.json`:
 {
   "mcpServers": {
     "hashnode": {
-      "command": "node",
-      "args": ["/absolute/path/to/mcp-hashnode/dist/index.js"],
+      "command": "npx",
+      "args": ["-y", "hashnode-mcp-server"],
       "env": {
         "HASHNODE_TOKEN": "your-token-here"
       }
@@ -56,8 +69,8 @@ Add to your `claude_desktop_config.json`:
 
 ```bash
 claude mcp add hashnode \
-  --command node \
-  --args /absolute/path/to/mcp-hashnode/dist/index.js \
+  --command npx \
+  --args "-y hashnode-mcp-server" \
   --env HASHNODE_TOKEN=your-token-here
 ```
 
@@ -97,6 +110,19 @@ Tags must be objects — not plain strings:
   { "name": "DevOps", "slug": "devops" }
 ]
 ```
+
+## Releases
+
+This project uses [release-please](https://github.com/googleapis/release-please) for automated releases.
+
+- Commits to `main` that follow [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `chore:` etc.) are tracked automatically.
+- release-please opens a **Release PR** that bumps the version and updates `CHANGELOG.md`.
+- Merging the Release PR creates a **GitHub Release** and triggers an automated **npm publish**.
+
+### Required secret
+
+Add `NPM_TOKEN` to the repository secrets (**Settings → Secrets → Actions**):  
+Generate at [npmjs.com/settings/tokens](https://www.npmjs.com/settings/tokens) — choose **Automation** type.
 
 ## License
 
