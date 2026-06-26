@@ -47,9 +47,11 @@ cd mcp-hashnode
 npm install && npm run build
 ```
 
-### 3. Configure in Claude Desktop
+### 3. Configure your MCP client
 
-Add to your `claude_desktop_config.json`:
+#### Claude Desktop
+
+Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
 
 ```json
 {
@@ -65,13 +67,68 @@ Add to your `claude_desktop_config.json`:
 }
 ```
 
-### 4. Configure in Claude Code
+#### Claude Code (CLI)
 
 ```bash
 claude mcp add hashnode \
   --command npx \
   --args "-y hashnode-mcp-server" \
   --env HASHNODE_TOKEN=your-token-here
+```
+
+#### Cursor
+
+Add to `.cursor/mcp.json` in your project root, or to `~/.cursor/mcp.json` globally:
+
+```json
+{
+  "mcpServers": {
+    "hashnode": {
+      "command": "npx",
+      "args": ["-y", "hashnode-mcp-server"],
+      "env": {
+        "HASHNODE_TOKEN": "your-token-here"
+      }
+    }
+  }
+}
+```
+
+#### VS Code (GitHub Copilot)
+
+Add to `.vscode/mcp.json` in your workspace:
+
+```json
+{
+  "servers": {
+    "hashnode": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "hashnode-mcp-server"],
+      "env": {
+        "HASHNODE_TOKEN": "your-token-here"
+      }
+    }
+  }
+}
+```
+
+#### Windsurf
+
+Add to `~/.codeium/windsurf/mcp_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "hashnode": {
+      "command": "npx",
+      "args": ["-y", "hashnode-mcp-server"],
+      "env": {
+        "HASHNODE_TOKEN": "your-token-here"
+      }
+    }
+  }
+}
 ```
 
 ## Usage examples
