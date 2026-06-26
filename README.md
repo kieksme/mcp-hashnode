@@ -1,6 +1,6 @@
-# hashnode-mcp-server
+# @kieksme/mcp-hashnode
 
-[![npm version](https://img.shields.io/npm/v/hashnode-mcp-server)](https://www.npmjs.com/package/hashnode-mcp-server)
+[![npm version](https://img.shields.io/npm/v/%40kieksme%2Fmcp-hashnode)](https://www.npmjs.com/package/@kieksme/mcp-hashnode)
 [![Release](https://github.com/kieksme/mcp-hashnode/actions/workflows/release.yml/badge.svg)](https://github.com/kieksme/mcp-hashnode/actions/workflows/release.yml)
 
 MCP server for the [Hashnode](https://hashnode.com) GraphQL API.  
@@ -32,12 +32,12 @@ Go to [hashnode.com/settings/developer](https://hashnode.com/settings/developer)
 
 **Via npx (no install needed — recommended):**
 ```bash
-npx -y hashnode-mcp-server
+npx -y @kieksme/mcp-hashnode
 ```
 
 **Via global install:**
 ```bash
-pnpm add -g hashnode-mcp-server
+pnpm add -g @kieksme/mcp-hashnode
 ```
 
 **Build from source:**
@@ -58,7 +58,7 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
   "mcpServers": {
     "hashnode": {
       "command": "npx",
-      "args": ["-y", "hashnode-mcp-server"],
+      "args": ["-y", "@kieksme/mcp-hashnode"],
       "env": {
         "HASHNODE_TOKEN": "your-token-here"
       }
@@ -72,7 +72,7 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
 ```bash
 claude mcp add hashnode \
   --command npx \
-  --args "-y hashnode-mcp-server" \
+  --args "-y @kieksme/mcp-hashnode" \
   --env HASHNODE_TOKEN=your-token-here
 ```
 
@@ -85,7 +85,7 @@ Add to `.cursor/mcp.json` in your project root, or to `~/.cursor/mcp.json` globa
   "mcpServers": {
     "hashnode": {
       "command": "npx",
-      "args": ["-y", "hashnode-mcp-server"],
+      "args": ["-y", "@kieksme/mcp-hashnode"],
       "env": {
         "HASHNODE_TOKEN": "your-token-here"
       }
@@ -104,7 +104,7 @@ Add to `.vscode/mcp.json` in your workspace:
     "hashnode": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "hashnode-mcp-server"],
+      "args": ["-y", "@kieksme/mcp-hashnode"],
       "env": {
         "HASHNODE_TOKEN": "your-token-here"
       }
@@ -122,7 +122,7 @@ Add to `~/.codeium/windsurf/mcp_config.json`:
   "mcpServers": {
     "hashnode": {
       "command": "npx",
-      "args": ["-y", "hashnode-mcp-server"],
+      "args": ["-y", "@kieksme/mcp-hashnode"],
       "env": {
         "HASHNODE_TOKEN": "your-token-here"
       }

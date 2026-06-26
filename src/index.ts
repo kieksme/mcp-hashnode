@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * hashnode-mcp-server
+ * @kieksme/mcp-hashnode
  *
  * MCP server for the Hashnode GraphQL API.
  * Supports creating drafts, publishing posts, listing/updating/deleting posts,
@@ -35,7 +35,7 @@ setApiToken(token);
 // ─── Server ───────────────────────────────────────────────────────────────────
 
 const server = new McpServer({
-  name: "hashnode-mcp-server",
+  name: "@kieksme/mcp-hashnode",
   version: "1.0.0",
 });
 
@@ -48,7 +48,7 @@ registerPostTools(server);
 async function main(): Promise<void> {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error("hashnode-mcp-server running via stdio");
+  console.error("@kieksme/mcp-hashnode running via stdio");
 }
 
 main().catch((error: unknown) => {

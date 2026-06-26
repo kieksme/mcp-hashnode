@@ -1,11 +1,11 @@
 {
-  "name": "hashnode-mcp-server",
+  "name": "@kieksme/mcp-hashnode",
   "version": "1.0.0",
   "description": "MCP server for the Hashnode GraphQL API — create drafts, publish posts, manage your blog via Claude",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "hashnode-mcp-server": "dist/index.js"
+    "mcp-hashnode": "dist/index.js"
   },
   "files": [
     "dist/",
