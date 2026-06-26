@@ -1,6 +1,6 @@
 {
   "name": "@kieksme/mcp-hashnode",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "MCP server for the Hashnode GraphQL API — create drafts, publish posts, manage your blog via Claude",
   "type": "module",
   "main": "dist/index.js",
