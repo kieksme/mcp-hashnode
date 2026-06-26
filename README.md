@@ -28,7 +28,7 @@ Go to [hashnode.com/settings/developer](https://hashnode.com/settings/developer)
 ### 2. Install & build
 
 ```bash
-git clone https://github.com/vergissberlin/mcp-hashnode.git
+git clone https://github.com/kieksme/mcp-hashnode.git
 cd mcp-hashnode
 npm install
 npm run build
@@ -43,7 +43,7 @@ Add to your `claude_desktop_config.json`:
   "mcpServers": {
     "hashnode": {
       "command": "node",
-      "args": ["/absolute/path/to/hashnode-mcp-server/dist/index.js"],
+      "args": ["/absolute/path/to/mcp-hashnode/dist/index.js"],
       "env": {
         "HASHNODE_TOKEN": "your-token-here"
       }
@@ -57,7 +57,7 @@ Add to your `claude_desktop_config.json`:
 ```bash
 claude mcp add hashnode \
   --command node \
-  --args /absolute/path/to/hashnode-mcp-server/dist/index.js \
+  --args /absolute/path/to/mcp-hashnode/dist/index.js \
   --env HASHNODE_TOKEN=your-token-here
 ```
 
