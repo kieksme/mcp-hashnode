@@ -6,6 +6,11 @@
 MCP server for the [Hashnode](https://hashnode.com) GraphQL API.  
 Create drafts, publish posts, manage your blog — all via Claude.
 
+> [!IMPORTANT]
+> **Hashnode Pro plan required.**  
+> Since May 2026, Hashnode's GraphQL API is only available to publications on a [Pro plan](https://hashnode.com/settings/billing).  
+> Free accounts will receive an error. Upgrade at **[hashnode.com/settings/billing](https://hashnode.com/settings/billing)**.
+
 ## Tools
 
 | Tool | Description |
