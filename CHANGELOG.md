@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.1](https://github.com/kieksme/mcp-hashnode/compare/mcp-hashnode-v1.1.0...mcp-hashnode-v1.1.1) (2026-06-26)
+
+
+### Bug Fixes
+
+* publish scoped npm package with --access public ([ff981dc](https://github.com/kieksme/mcp-hashnode/commit/ff981dce8e24c73248e72e825a4796239ecc7c51))
+* return clear error when Hashnode API requires Pro plan ([9b126ea](https://github.com/kieksme/mcp-hashnode/commit/9b126ea9a988ad8b8c924db6c9edafb50cbb3b8f))
+
+
+### Miscellaneous Chores
+
+* ignore .pnpm-store ([108214e](https://github.com/kieksme/mcp-hashnode/commit/108214efa3ca0537c24f68eb2d0212721db1402d))
+
 ## [1.1.0](https://github.com/kieksme/mcp-hashnode/compare/mcp-hashnode-v1.0.0...mcp-hashnode-v1.1.0) (2026-06-26)
 
 
