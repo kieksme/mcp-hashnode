@@ -4,7 +4,7 @@
 [![Release](https://github.com/kieksme/mcp-hashnode/actions/workflows/release.yml/badge.svg)](https://github.com/kieksme/mcp-hashnode/actions/workflows/release.yml)
 
 MCP server for the [Hashnode](https://hashnode.com) GraphQL API.  
-Create drafts, publish posts, manage your blog — all via Claude.
+Create drafts, publish posts, and manage your blog from any MCP client.
 
 > [!IMPORTANT]
 > **Hashnode Pro plan required.**  
@@ -53,6 +53,13 @@ pnpm install && pnpm run build
 ```
 
 ### 3. Configure your MCP client
+
+#### Claude Code plugin
+
+```text
+/plugin marketplace add kieksme/mcp-hashnode
+/plugin install hashnode-mcp@mcp-hashnode
+```
 
 #### Claude Desktop
 
@@ -117,6 +124,24 @@ Add to `.vscode/mcp.json` in your workspace:
   }
 }
 ```
+
+#### Remote MCP (ChatGPT, Codex, and Copilot Cloud Agent)
+
+Set `MCP_TRANSPORT=http`, `MCP_HTTP_AUTH_TOKEN`, and optionally `MCP_HTTP_PORT` on the
+hosted server. The MCP endpoint is `https://<your-host>/mcp`; `/health` is available
+for hosting probes. Use the committed `.github/mcp.json` for Copilot Cloud Agent;
+it expects `COPILOT_MCP_HASHNODE_URL` and
+`COPILOT_MCP_HASHNODE_TOKEN`.
+
+In Codex, register the same endpoint with:
+
+```bash
+codex mcp add hashnode --url https://<your-host>/mcp \
+  --bearer-token-env-var HASHNODE_MCP_AUTH_TOKEN
+```
+
+In ChatGPT, add the public HTTPS endpoint as a custom MCP app/connector and provide
+the bearer token during setup. ChatGPT cannot reach `localhost`.
 
 #### Windsurf
 

@@ -1,0 +1,19 @@
+{
+  "name": "hashnode-mcp",
+  "version": "1.1.1",
+  "description": "Create drafts, publish posts, and manage Hashnode publications via MCP.",
+  "author": { "name": "kieksme", "url": "https://github.com/kieksme" },
+  "homepage": "https://github.com/kieksme/mcp-hashnode#readme",
+  "repository": "https://github.com/kieksme/mcp-hashnode",
+  "license": "MIT",
+  "keywords": ["mcp", "hashnode", "blog", "graphql", "publishing"],
+  "mcpServers": "./mcp.json",
+  "interface": {
+    "displayName": "Hashnode MCP",
+    "shortDescription": "Manage Hashnode publications",
+    "longDescription": "Create drafts, publish posts, and manage Hashnode publications through the GraphQL API.",
+    "developerName": "kieksme",
+    "category": "Developer Tools",
+    "capabilities": ["Read", "Write"]
+  }
+}

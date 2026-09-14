@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "hashnode": {
+      "command": "npx",
+      "args": ["-y", "@kieksme/mcp-hashnode"],
+      "env": {
+        "HASHNODE_TOKEN": "${user_config.token}"
+      }
+    }
+  }
+}

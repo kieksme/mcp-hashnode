@@ -1,0 +1,20 @@
+{
+  "name": "hashnode-mcp",
+  "displayName": "Hashnode MCP",
+  "description": "Create drafts, publish posts, and manage Hashnode publications via MCP.",
+  "version": "1.1.1",
+  "author": { "name": "kieksme", "url": "https://github.com/kieksme" },
+  "homepage": "https://github.com/kieksme/mcp-hashnode#readme",
+  "repository": "https://github.com/kieksme/mcp-hashnode",
+  "license": "MIT",
+  "keywords": ["mcp", "hashnode", "blog", "graphql", "publishing"],
+  "userConfig": {
+    "token": {
+      "type": "string",
+      "title": "Hashnode Personal Access Token",
+      "description": "From https://hashnode.com/settings/developer",
+      "sensitive": true,
+      "required": true
+    }
+  }
+}

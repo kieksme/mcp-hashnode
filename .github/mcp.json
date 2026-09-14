@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "hashnode": {
+      "type": "http",
+      "url": "${COPILOT_MCP_HASHNODE_URL}",
+      "headers": {
+        "Authorization": "Bearer ${COPILOT_MCP_HASHNODE_TOKEN}"
+      },
+      "tools": ["*"]
+    }
+  }
+}

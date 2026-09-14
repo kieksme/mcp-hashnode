@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "hashnode": {
+      "command": "npx",
+      "args": ["-y", "@kieksme/mcp-hashnode"]
+    }
+  }
+}

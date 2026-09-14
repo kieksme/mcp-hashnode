@@ -1,0 +1,13 @@
+{
+  "inputs": [
+    { "type": "promptString", "id": "hashnode_token", "description": "Hashnode Personal Access Token", "password": true }
+  ],
+  "servers": {
+    "hashnode": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@kieksme/mcp-hashnode"],
+      "env": { "HASHNODE_TOKEN": "${input:hashnode_token}" }
+    }
+  }
+}

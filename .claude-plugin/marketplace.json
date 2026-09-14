@@ -1,0 +1,15 @@
+{
+  "name": "mcp-hashnode",
+  "owner": {
+    "name": "kieksme",
+    "url": "https://github.com/kieksme"
+  },
+  "description": "Hashnode GraphQL MCP server",
+  "plugins": [
+    {
+      "name": "hashnode-mcp",
+      "source": "./",
+      "description": "Create drafts, publish posts, and manage Hashnode publications via MCP."
+    }
+  ]
+}
