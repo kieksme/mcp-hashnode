@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/kieksme/mcp-hashnode/compare/mcp-hashnode-v1.2.0...mcp-hashnode-v1.2.1) (2026-09-14)
+
+
+### Documentation
+
+* add trust badges to README ([995623a](https://github.com/kieksme/mcp-hashnode/commit/995623a5d370d5e47461fed5a7d5ef89a0478870))
+
 ## [1.2.0](https://github.com/kieksme/mcp-hashnode/compare/mcp-hashnode-v1.1.1...mcp-hashnode-v1.2.0) (2026-09-14)
 
 
