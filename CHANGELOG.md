@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.0](https://github.com/kieksme/mcp-hashnode/compare/mcp-hashnode-v1.1.1...mcp-hashnode-v1.2.0) (2026-09-14)
+
+
+### Features
+
+* **transport:** add remote MCP client configurations ([4b4c8d3](https://github.com/kieksme/mcp-hashnode/commit/4b4c8d318cbbd99ab4740537f4e003a09a0cabe9))
+
+
+### Documentation
+
+* add Pro plan requirement notice to README ([84424ff](https://github.com/kieksme/mcp-hashnode/commit/84424ff905dbb36f0cc976c5666f6ba1ac9357f6))
+
 ## [1.1.1](https://github.com/kieksme/mcp-hashnode/compare/mcp-hashnode-v1.1.0...mcp-hashnode-v1.1.1) (2026-06-26)
 
 
