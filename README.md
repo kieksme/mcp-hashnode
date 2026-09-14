@@ -2,6 +2,8 @@
 
 [![npm version](https://img.shields.io/npm/v/%40kieksme%2Fmcp-hashnode)](https://www.npmjs.com/package/@kieksme/mcp-hashnode)
 [![Release](https://github.com/kieksme/mcp-hashnode/actions/workflows/release.yml/badge.svg)](https://github.com/kieksme/mcp-hashnode/actions/workflows/release.yml)
+[![AgentAvow](https://agentavow.com/api/v1/public/scan/kieksme/mcp-hashnode/badge)](https://agentavow.com/check/kieksme/mcp-hashnode)
+[![MCP Trust Score](https://mcptrustchecker.com/scan/github/kieksme/mcp-hashnode/badge.svg)](https://mcptrustchecker.com/scan/github/kieksme/mcp-hashnode)
 
 MCP server for the [Hashnode](https://hashnode.com) GraphQL API.  
 Create drafts, publish posts, and manage your blog from any MCP client.
