@@ -1,6 +1,6 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import type { McpServer } from "@modelcontextprotocol/server";
 import { z } from "zod";
-import { gql } from "../services/hashnode.js";
+import type { HashnodeClient } from "../services/hashnode.js";
 import type { HashnodeMe, HashnodePublication } from "../types.js";
 
 enum ResponseFormat {
@@ -51,7 +51,7 @@ const PUBLICATION_QUERY = `
 
 // ─── Register ─────────────────────────────────────────────────────────────────
 
-export function registerPublicationTools(server: McpServer): void {
+export function registerPublicationTools(server: McpServer, client: HashnodeClient): void {
   // hashnode_get_me ──────────────────────────────────────────────────────────
 
   server.registerTool(
@@ -80,7 +80,7 @@ Examples:
     },
     async ({ response_format }) => {
       try {
-        const data = await gql<{ me: HashnodeMe }>(ME_QUERY);
+        const data = await client.gql<{ me: HashnodeMe }>(ME_QUERY);
         const me = data.me;
 
         const publications = (me.publications?.edges ?? []).map((e) => e.node);
@@ -159,7 +159,7 @@ Examples:
     },
     async ({ host, response_format }) => {
       try {
-        const data = await gql<{ publication: HashnodePublication }>(
+        const data = await client.gql<{ publication: HashnodePublication }>(
           PUBLICATION_QUERY,
           { host }
         );

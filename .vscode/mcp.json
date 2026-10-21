@@ -6,7 +6,7 @@
     "hashnode": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@kieksme/mcp-hashnode"],
+      "args": ["-y", "@kieksme/hashnode-mcp"],
       "env": { "HASHNODE_TOKEN": "${input:hashnode_token}" }
     }
   }

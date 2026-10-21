@@ -1,6 +1,6 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import type { McpServer } from "@modelcontextprotocol/server";
 import { z } from "zod";
-import { gql } from "../services/hashnode.js";
+import type { HashnodeClient } from "../services/hashnode.js";
 import { CHARACTER_LIMIT } from "../constants.js";
 import type { HashnodePost } from "../types.js";
 
@@ -146,7 +146,7 @@ function formatPost(post: HashnodePost, verbose = false): string {
 
 // ─── Register ─────────────────────────────────────────────────────────────────
 
-export function registerPostTools(server: McpServer): void {
+export function registerPostTools(server: McpServer, client: HashnodeClient): void {
   // hashnode_list_posts ──────────────────────────────────────────────────────
 
   server.registerTool(
@@ -185,7 +185,7 @@ Returns: posts with id, title, slug, url, publishedAt, views, readTime, tags`,
     },
     async ({ host, limit, after, response_format }) => {
       try {
-        const data = await gql<{
+        const data = await client.gql<{
           publication: {
             posts: {
               edges: Array<{ node: HashnodePost; cursor: string }>;
@@ -288,7 +288,7 @@ Returns: full post data including content brief, views, tags, cover image, autho
     },
     async ({ host, slug, response_format }) => {
       try {
-        const data = await gql<{
+        const data = await client.gql<{
           publication: { post: HashnodePost | null };
         }>(GET_POST_QUERY, { host, slug });
 
@@ -439,7 +439,7 @@ Returns: post id, title, slug, url, publishedAt, tags`,
         }
         if (scheduled_at) input.publishedAt = scheduled_at;
 
-        const data = await gql<{ publishPost: { post: HashnodePost } }>(
+        const data = await client.gql<{ publishPost: { post: HashnodePost } }>(
           PUBLISH_POST_MUTATION,
           { input }
         );
@@ -535,7 +535,7 @@ Args:
         if (cover_image_url !== undefined)
           input.coverImageOptions = { coverImageURL: cover_image_url };
 
-        const data = await gql<{ updatePost: { post: HashnodePost } }>(
+        const data = await client.gql<{ updatePost: { post: HashnodePost } }>(
           UPDATE_POST_MUTATION,
           { input }
         );
@@ -598,7 +598,7 @@ Args:
     },
     async ({ post_id, response_format }) => {
       try {
-        const data = await gql<{
+        const data = await client.gql<{
           removePost: { post: Pick<HashnodePost, "id" | "title" | "slug"> };
         }>(REMOVE_POST_MUTATION, { input: { id: post_id } });
 

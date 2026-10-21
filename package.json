@@ -1,51 +1,77 @@
 {
-  "name": "@kieksme/mcp-hashnode",
+  "name": "@kieksme/hashnode-mcp",
+  "mcpName": "io.github.kieksme/hashnode-mcp",
   "version": "1.2.0",
   "description": "MCP server for the Hashnode GraphQL API — create drafts, publish posts, manage your blog via Claude",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
+    "hashnode-mcp": "dist/index.js",
     "mcp-hashnode": "dist/index.js"
   },
   "files": [
-    "dist/",
-    "README.md"
+    "dist",
+    "README.md",
+    "LICENSE",
+    "server.json"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/kieksme/mcp-hashnode.git"
+    "url": "git+https://github.com/kieksme/mcp-hashnode.git"
   },
-  "homepage": "https://github.com/kieksme/mcp-hashnode",
+  "homepage": "https://github.com/kieksme/mcp-hashnode#readme",
   "bugs": {
     "url": "https://github.com/kieksme/mcp-hashnode/issues"
   },
   "keywords": [
     "mcp",
+    "model-context-protocol",
     "hashnode",
     "blog",
     "graphql",
     "claude",
-    "ai",
-    "model-context-protocol"
+    "ai"
   ],
+  "author": "kieksme GbR",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "start": "node dist/index.js",
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
-    "clean": "rm -rf dist"
+    "prebuild": "node -e \"fs.rmSync('dist', { recursive: true, force: true })\"",
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "clean": "rm -rf dist",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "pnpm run build"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22.14.0"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.12.0",
+    "@kieksme/mcp-http-kit": "^0.2.0",
+    "@modelcontextprotocol/node": "^2.1.1",
+    "@modelcontextprotocol/server": "^2.3.1",
     "axios": "^1.7.9",
-    "zod": "^3.23.8"
+    "zod": "^4.6.5"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.5",
     "@types/node": "^22.10.0",
+    "eslint": "^9.39.2",
     "tsx": "^4.19.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.71.1",
+    "vitest": "^3.2.7"
+  },
+  "packageManager": "pnpm@10.33.2",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }

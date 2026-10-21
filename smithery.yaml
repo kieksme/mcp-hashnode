@@ -1,0 +1,31 @@
+# Smithery project config — https://smithery.ai/docs/build/project-config
+#
+# Container runtime: Smithery builds the Dockerfile and connects over
+# Streamable HTTP. The kit honors PORT (Smithery sets it) and serves MCP at
+# /mcp by default.
+
+runtime: container
+
+build:
+  dockerfile: Dockerfile
+  dockerBuildPath: .
+
+startCommand:
+  type: http
+  configSchema:
+    type: object
+    properties:
+      mcpAuthToken:
+        type: string
+        title: MCP bearer token
+        description: Value for MCP_AUTH_TOKEN (clients send Authorization: Bearer …).
+      hashnodeToken:
+        type: string
+        title: Hashnode Personal Access Token
+        description: HASHNODE_TOKEN from https://hashnode.com/settings/developer
+    required:
+      - mcpAuthToken
+      - hashnodeToken
+  exampleConfig:
+    mcpAuthToken: "replace-me"
+    hashnodeToken: "replace-me"

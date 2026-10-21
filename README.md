@@ -1,6 +1,7 @@
-# @kieksme/mcp-hashnode
+# @kieksme/hashnode-mcp
 
-[![npm version](https://img.shields.io/npm/v/%40kieksme%2Fmcp-hashnode)](https://www.npmjs.com/package/@kieksme/mcp-hashnode)
+[![npm version](https://img.shields.io/npm/v/%40kieksme%2Fhashnode-mcp)](https://www.npmjs.com/package/@kieksme/hashnode-mcp)
+[![CI](https://github.com/kieksme/mcp-hashnode/actions/workflows/ci.yml/badge.svg)](https://github.com/kieksme/mcp-hashnode/actions/workflows/ci.yml)
 [![Release](https://github.com/kieksme/mcp-hashnode/actions/workflows/release.yml/badge.svg)](https://github.com/kieksme/mcp-hashnode/actions/workflows/release.yml)
 [![AgentAvow](https://agentavow.com/api/v1/public/scan/kieksme/mcp-hashnode/badge)](https://agentavow.com/check/kieksme/mcp-hashnode)
 [![MCP Trust Score](https://mcptrustchecker.com/scan/github/kieksme/mcp-hashnode/badge.svg)](https://mcptrustchecker.com/scan/github/kieksme/mcp-hashnode)
@@ -12,6 +13,10 @@ Create drafts, publish posts, and manage your blog from any MCP client.
 > **Hashnode Pro plan required.**  
 > Since May 2026, Hashnode's GraphQL API is only available to publications on a [Pro plan](https://hashnode.com/settings/billing).  
 > Free accounts will receive an error. Upgrade at **[hashnode.com/settings/billing](https://hashnode.com/settings/billing)**.
+
+> [!NOTE]
+> Package rename: published as **`@kieksme/hashnode-mcp`** (was `@kieksme/mcp-hashnode`).  
+> The `mcp-hashnode` CLI binary remains as a compatibility alias for `hashnode-mcp`.
 
 ## Tools
 
@@ -39,12 +44,12 @@ Go to [hashnode.com/settings/developer](https://hashnode.com/settings/developer)
 
 **Via npx (no install needed — recommended):**
 ```bash
-npx -y @kieksme/mcp-hashnode
+npx -y @kieksme/hashnode-mcp
 ```
 
 **Via global install:**
 ```bash
-pnpm add -g @kieksme/mcp-hashnode
+pnpm add -g @kieksme/hashnode-mcp
 ```
 
 **Build from source:**
@@ -72,7 +77,7 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
   "mcpServers": {
     "hashnode": {
       "command": "npx",
-      "args": ["-y", "@kieksme/mcp-hashnode"],
+      "args": ["-y", "@kieksme/hashnode-mcp"],
       "env": {
         "HASHNODE_TOKEN": "your-token-here"
       }
@@ -86,7 +91,7 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
 ```bash
 claude mcp add hashnode \
   --command npx \
-  --args "-y @kieksme/mcp-hashnode" \
+  --args "-y @kieksme/hashnode-mcp" \
   --env HASHNODE_TOKEN=your-token-here
 ```
 
@@ -99,7 +104,7 @@ Add to `.cursor/mcp.json` in your project root, or to `~/.cursor/mcp.json` globa
   "mcpServers": {
     "hashnode": {
       "command": "npx",
-      "args": ["-y", "@kieksme/mcp-hashnode"],
+      "args": ["-y", "@kieksme/hashnode-mcp"],
       "env": {
         "HASHNODE_TOKEN": "your-token-here"
       }
@@ -118,7 +123,7 @@ Add to `.vscode/mcp.json` in your workspace:
     "hashnode": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@kieksme/mcp-hashnode"],
+      "args": ["-y", "@kieksme/hashnode-mcp"],
       "env": {
         "HASHNODE_TOKEN": "your-token-here"
       }
@@ -129,11 +134,13 @@ Add to `.vscode/mcp.json` in your workspace:
 
 #### Remote MCP (ChatGPT, Codex, and Copilot Cloud Agent)
 
-Set `MCP_TRANSPORT=http`, `MCP_HTTP_AUTH_TOKEN`, and optionally `MCP_HTTP_PORT` on the
-hosted server. The MCP endpoint is `https://<your-host>/mcp`; `/health` is available
-for hosting probes. Use the committed `.github/mcp.json` for Copilot Cloud Agent;
-it expects `COPILOT_MCP_HASHNODE_URL` and
-`COPILOT_MCP_HASHNODE_TOKEN`.
+Set `MCP_TRANSPORT=http`, `MCP_AUTH_TOKEN`, `MCP_HTTP_HOST=0.0.0.0`, and `MCP_ALLOWED_HOSTS` on the
+hosted server (Railway sets `PORT`). The MCP endpoint is `https://<your-host>/mcp`; `/health` is
+available for hosting probes (no auth, Host-agnostic). Use the committed `.github/mcp.json` for
+Copilot Cloud Agent; it expects `COPILOT_MCP_HASHNODE_URL` and `COPILOT_MCP_HASHNODE_TOKEN`.
+
+Legacy aliases still work (one-line deprecation warning): `MCP_HTTP_AUTH_TOKEN`, `MCP_HTTP_PORT`,
+`MCP_HTTP_ALLOWED_HOSTS`, `MCP_HTTP_ALLOWED_ORIGINS`, `HEALTH_ENDPOINT`.
 
 In Codex, register the same endpoint with:
 
@@ -154,13 +161,72 @@ Add to `~/.codeium/windsurf/mcp_config.json`:
   "mcpServers": {
     "hashnode": {
       "command": "npx",
-      "args": ["-y", "@kieksme/mcp-hashnode"],
+      "args": ["-y", "@kieksme/hashnode-mcp"],
       "env": {
         "HASHNODE_TOKEN": "your-token-here"
       }
     }
   }
 }
+```
+
+## Running the server
+
+Transport is provided by [`@kieksme/mcp-http-kit`](https://github.com/kieksme/mcp-http-kit):
+
+| Mode | How |
+|---|---|
+| **stdio** (default) | Local MCP clients spawn the process |
+| **HTTP** | `MCP_TRANSPORT=http` or `--http` |
+
+```bash
+# Local stdio
+HASHNODE_TOKEN=… npx -y @kieksme/hashnode-mcp
+
+# Streamable HTTP (containers / Railway)
+MCP_TRANSPORT=http \
+MCP_HTTP_HOST=0.0.0.0 \
+MCP_ALLOWED_HOSTS=your.railway.app \
+MCP_AUTH_TOKEN="$(openssl rand -hex 32)" \
+HASHNODE_TOKEN=… \
+pnpm start
+```
+
+### Upstream credentials
+
+| Variable | Notes |
+|---|---|
+| `HASHNODE_TOKEN` | Default: process env Personal Access Token |
+| `HASHNODE_CREDENTIAL_MODE` | `env` (default) or `header` |
+| `X-Hashnode-Token` | Per-request PAT when mode is `header` (never logged). Refused when `MCP_AUTH_MODE=none`. |
+
+### HTTP / kit env (summary)
+
+| Variable | Default | Notes |
+|---|---|---|
+| `MCP_TRANSPORT` | `stdio` | `stdio` \| `http` |
+| `PORT` | `3000` | Preferred listen port (Railway). Fallback: `MCP_HTTP_PORT` |
+| `MCP_HTTP_HOST` | `127.0.0.1` | Use `0.0.0.0` in containers |
+| `MCP_HTTP_PATH` | `/mcp` | MCP endpoint |
+| `MCP_HEALTH_PATH` | `/health` | Unauthenticated health |
+| `MCP_ALLOWED_HOSTS` | localhost trio | Required when binding beyond localhost |
+| `MCP_AUTH_MODE` | `bearer` | `bearer` \| `oauth` \| `none` |
+| `MCP_AUTH_TOKEN` | — | Bearer secrets; comma-separated for rotation |
+
+## Docker / Railway / Smithery
+
+- `Dockerfile` — multi-stage, non-root, `HEALTHCHECK` on `/health`
+- `railway.json` — healthcheck path `/health`
+- `server.json` — official MCP registry (`io.github.kieksme/hashnode-mcp`)
+- `smithery.yaml` — container runtime over Streamable HTTP
+
+```bash
+docker build -t hashnode-mcp .
+docker run --rm -p 3000:3000 \
+  -e MCP_AUTH_TOKEN=… \
+  -e HASHNODE_TOKEN=… \
+  -e MCP_ALLOWED_HOSTS=localhost,127.0.0.1 \
+  hashnode-mcp
 ```
 
 ## Usage examples
@@ -184,6 +250,8 @@ Add to `~/.codeium/windsurf/mcp_config.json`:
 Hashnode requires `Authorization: <token>` (no `Bearer` prefix).  
 All mutations need the token; most read queries are public.
 
+MCP clients talking to this server over HTTP must send `Authorization: Bearer <MCP_AUTH_TOKEN>` separately from the Hashnode PAT.
+
 ## Rate limits
 
 - Queries: 20,000 req/min  
@@ -200,14 +268,25 @@ Tags must be objects — not plain strings:
 ]
 ```
 
+## Development
+
+```bash
+pnpm install
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm build
+```
+
+Node **22.14+**, pnpm, ESM.
+
 ## Releases
 
 This project uses [release-please](https://github.com/googleapis/release-please) for automated releases.
 
 - Commits to `main` that follow [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `chore:` etc.) are tracked automatically.
-- All supported Conventional Commit categories (`feat`, `fix`, `perf`, `revert`, `docs`, `style`, `chore`, `refactor`, `test`, `build`, `ci`) are included for release-please changelog generation and Release PR updates.
 - release-please opens a **Release PR** that bumps the version and updates `CHANGELOG.md`.
-- Merging the Release PR creates a **GitHub Release** and triggers an automated **npm publish**.
+- Merging the Release PR creates a **GitHub Release** and triggers an automated **npm publish** of `@kieksme/hashnode-mcp`.
 
 ### Required secret
 
