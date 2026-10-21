@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/kieksme/mcp-hashnode/compare/hashnode-mcp-v2.0.0...hashnode-mcp-v2.0.1) (2026-10-21)
+
+
+### Documentation
+
+* trim 2.0.0 changelog to changes since mcp-hashnode-v1.2.0 ([#11](https://github.com/kieksme/mcp-hashnode/issues/11)) ([481cb01](https://github.com/kieksme/mcp-hashnode/commit/481cb01fbc9b413d1c181badc68aaa4ece2eb22a))
+
 ## [2.0.0](https://github.com/kieksme/mcp-hashnode/compare/mcp-hashnode-v1.2.0...hashnode-mcp-v2.0.0) (2026-10-21)
 
 
