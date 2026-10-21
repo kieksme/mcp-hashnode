@@ -1,60 +1,62 @@
 import axios, { AxiosError } from "axios";
 import { HASHNODE_GQL_ENDPOINT } from "../constants.js";
 
-let apiToken: string | undefined;
-
-export function setApiToken(token: string): void {
-  apiToken = token;
-}
-
 /**
- * Execute a GraphQL query or mutation against the Hashnode API.
- * Auth header format: `Authorization: <token>` (NOT Bearer).
+ * Hashnode GraphQL client. Token is per-instance (stdio process env or
+ * per-HTTP-request via `X-Hashnode-Token`) — never log it.
  */
-export async function gql<T>(
-  query: string,
-  variables?: Record<string, unknown>
-): Promise<T> {
-  if (!apiToken) {
-    throw new Error(
-      "HASHNODE_TOKEN environment variable is not set. " +
-        "Get your Personal Access Token at https://hashnode.com/settings/developer"
-    );
-  }
-
-  try {
-    const response = await axios.post(
-      HASHNODE_GQL_ENDPOINT,
-      { query, variables },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: apiToken,
-        },
-        timeout: 30_000,
-        maxRedirects: 0,
-      }
-    );
-
-    if (typeof response.data !== "object" || response.data === null) {
+export class HashnodeClient {
+  constructor(private readonly token: string) {
+    if (!token?.trim()) {
       throw new Error(
-        "Error: Hashnode API returned an unexpected response (HTML instead of JSON). " +
-          "The GraphQL API requires a Pro plan since May 2026. " +
-          "Upgrade at: https://hashnode.com/settings/billing"
+        "Hashnode token is empty. Set HASHNODE_TOKEN or send X-Hashnode-Token " +
+          "(see HASHNODE_CREDENTIAL_MODE)."
       );
     }
+  }
 
-    if (response.data.errors?.length) {
-      const msgs = response.data.errors
-        .map((e: { message: string }) => e.message)
-        .join("; ");
-      throw new Error(`GraphQL error: ${msgs}`);
+  /**
+   * Execute a GraphQL query or mutation against the Hashnode API.
+   * Auth header format: `Authorization: <token>` (NOT Bearer).
+   */
+  async gql<T>(
+    query: string,
+    variables?: Record<string, unknown>
+  ): Promise<T> {
+    try {
+      const response = await axios.post(
+        HASHNODE_GQL_ENDPOINT,
+        { query, variables },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: this.token,
+          },
+          timeout: 30_000,
+          maxRedirects: 0,
+        }
+      );
+
+      if (typeof response.data !== "object" || response.data === null) {
+        throw new Error(
+          "Error: Hashnode API returned an unexpected response (HTML instead of JSON). " +
+            "The GraphQL API requires a Pro plan since May 2026. " +
+            "Upgrade at: https://hashnode.com/settings/billing"
+        );
+      }
+
+      if (response.data.errors?.length) {
+        const msgs = response.data.errors
+          .map((e: { message: string }) => e.message)
+          .join("; ");
+        throw new Error(`GraphQL error: ${msgs}`);
+      }
+
+      return response.data.data as T;
+    } catch (error) {
+      throw normalizeError(error);
     }
-
-    return response.data.data as T;
-  } catch (error) {
-    throw normalizeError(error);
   }
 }
 

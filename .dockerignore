@@ -1,0 +1,14 @@
+node_modules
+dist
+*.log
+.git
+.github
+tests
+*.md
+!README.md
+!LICENSE
+.env
+.pnpm-store
+AGENTS.md
+CHANGELOG.md
+coverage

@@ -3,3 +3,7 @@ dist/
 .pnpm-store/
 .env
 *.env
+coverage/
+*.log
+.netlify
+

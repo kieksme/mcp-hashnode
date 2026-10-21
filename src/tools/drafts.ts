@@ -1,6 +1,6 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import type { McpServer } from "@modelcontextprotocol/server";
 import { z } from "zod";
-import { gql } from "../services/hashnode.js";
+import type { HashnodeClient } from "../services/hashnode.js";
 import type { HashnodeDraft, HashnodePost } from "../types.js";
 
 enum ResponseFormat {
@@ -125,7 +125,7 @@ function formatPost(post: HashnodePost): string {
 
 // ─── Register ─────────────────────────────────────────────────────────────────
 
-export function registerDraftTools(server: McpServer): void {
+export function registerDraftTools(server: McpServer, client: HashnodeClient): void {
   // hashnode_list_drafts ─────────────────────────────────────────────────────
 
   server.registerTool(
@@ -164,7 +164,7 @@ Returns: list of drafts with id, title, subtitle, tags, updated date`,
     },
     async ({ publication_id, limit, after, response_format }) => {
       try {
-        const data = await gql<{
+        const data = await client.gql<{
           me: {
             drafts: {
               edges: Array<{ node: HashnodeDraft; cursor: string }>;
@@ -323,7 +323,7 @@ Returns: draft id, title, slug, tags, updatedAt`,
           };
         }
 
-        const data = await gql<{ createDraft: { draft: HashnodeDraft } }>(
+        const data = await client.gql<{ createDraft: { draft: HashnodeDraft } }>(
           CREATE_DRAFT_MUTATION,
           { input }
         );
@@ -424,7 +424,7 @@ Args:
         if (cover_image_url !== undefined)
           input.coverImageOptions = { coverImageURL: cover_image_url };
 
-        const data = await gql<{ updateDraft: { draft: HashnodeDraft } }>(
+        const data = await client.gql<{ updateDraft: { draft: HashnodeDraft } }>(
           UPDATE_DRAFT_MUTATION,
           { input }
         );
@@ -490,7 +490,7 @@ Examples:
     },
     async ({ draft_id, response_format }) => {
       try {
-        const data = await gql<{ publishDraft: { post: HashnodePost } }>(
+        const data = await client.gql<{ publishDraft: { post: HashnodePost } }>(
           PUBLISH_DRAFT_MUTATION,
           { input: { draftId: draft_id } }
         );
