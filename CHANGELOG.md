@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.1.0](https://github.com/kieksme/mcp-hashnode/compare/hashnode-mcp-v2.0.1...hashnode-mcp-v2.1.0) (2026-10-31)
+
+
+### Features
+
+* opt-in OpenTelemetry tracing via mcp-http-kit 0.4.1 ([8baa2ee](https://github.com/kieksme/mcp-hashnode/commit/8baa2eef5f0d555dfae85aaef4ab0187ff9805cd))
+
+
+### Documentation
+
+* drop trunk-based development rule from AGENTS.md ([#13](https://github.com/kieksme/mcp-hashnode/issues/13)) ([91aea0d](https://github.com/kieksme/mcp-hashnode/commit/91aea0d743e7179130ae2a257fb598aee6916d79))
+
+
+### Continuous Integration
+
+* publish to npm with trusted publishing ([#15](https://github.com/kieksme/mcp-hashnode/issues/15)) ([569b720](https://github.com/kieksme/mcp-hashnode/commit/569b720435be10ed293f690592b207ebcc5001ac))
+
 ## [2.0.1](https://github.com/kieksme/mcp-hashnode/compare/hashnode-mcp-v2.0.0...hashnode-mcp-v2.0.1) (2026-10-30)
 
 
