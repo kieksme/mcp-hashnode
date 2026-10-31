@@ -213,6 +213,33 @@ pnpm start
 | `MCP_AUTH_MODE` | `bearer` | `bearer` \| `oauth` \| `none` |
 | `MCP_AUTH_TOKEN` | — | Bearer secrets; comma-separated for rotation |
 
+### Tracing (OpenTelemetry, opt-in)
+
+Off by default. Set an OTLP endpoint and one tool call becomes one trace: MCP client → this server → Hashnode GraphQL API. The trace context comes from `params._meta` (`traceparent` / `tracestate`), so it also works over stdio. It is trusted only with `MCP_AUTH_MODE` `bearer` / `oauth`, or on stdio.
+
+```bash
+OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318 \
+OTEL_SERVICE_NAME=hashnode-mcp \
+MCP_TRANSPORT=http MCP_AUTH_TOKEN=… HASHNODE_TOKEN=… \
+pnpm start
+```
+
+Try it locally with Jaeger (UI on <http://localhost:16686>):
+
+```bash
+docker run --rm -p 16686:16686 -p 4318:4318 jaegertracing/all-in-one
+```
+
+| Variable | Notes |
+|---|---|
+| `OTEL_EXPORTER_OTLP_ENDPOINT` | Switches tracing on (traces are posted to `<endpoint>/v1/traces`). Use `OTEL_EXPORTER_OTLP_TRACES_ENDPOINT` for a full URL. |
+| `OTEL_EXPORTER_OTLP_HEADERS` | Auth headers for the collector (never logged) |
+| `OTEL_SERVICE_NAME` | Service name, default `hashnode-mcp` |
+| `OTEL_SDK_DISABLED=true` | Kill switch |
+| `MCP_OTEL_RECORD_PAYLOADS=true` | Also record tool arguments, results and full URLs. **Off by default** because they can contain article text and query strings. |
+
+Privacy by default: no tool arguments or results, no `Authorization` header, query strings and credentials removed from URL attributes, only `traceparent` / `tracestate` sent to Hashnode (never baggage), and only calls made inside a tool call are traced. Details: [`@kieksme/mcp-http-kit` README](https://github.com/kieksme/mcp-http-kit#tracing-opentelemetry-opt-in).
+
 ## Docker / Railway / Smithery
 
 - `Dockerfile` — multi-stage, non-root, `HEALTHCHECK` on `/health`
