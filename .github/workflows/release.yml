@@ -23,6 +23,9 @@ jobs:
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
 
+  # npm Trusted Publishing (OIDC): no NPM_TOKEN. npmjs.com validates the workflow that *runs*
+  # `npm publish`, so the publisher entry for @kieksme/hashnode-mcp must list this file name
+  # (`release.yml`, no environment). Needs a GitHub-hosted runner, Node >= 22.14 and npm >= 11.5.1.
   npm-publish:
     needs: release-please
     if: ${{ needs.release-please.outputs.release_created }}
@@ -37,13 +40,11 @@ jobs:
           version: 10.33.2
       - uses: actions/setup-node@v4
         with:
-          node-version: "22.14"
+          node-version: "24"
           registry-url: "https://registry.npmjs.org"
           cache: "pnpm"
       - run: pnpm install --frozen-lockfile
       - run: pnpm run build
       - run: pnpm test
-      - name: Publish to npm
-        run: pnpm publish --no-git-checks --access public --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish to npm (Trusted Publishing, provenance)
+        run: npx --yes npm@11.5.1 publish --access public --provenance

@@ -288,10 +288,16 @@ This project uses [release-please](https://github.com/googleapis/release-please)
 - release-please opens a **Release PR** that bumps the version and updates `CHANGELOG.md`.
 - Merging the Release PR creates a **GitHub Release** and triggers an automated **npm publish** of `@kieksme/hashnode-mcp`.
 
-### Required secret
+### npm Trusted Publishing
 
-Add `NPM_TOKEN` to the repository secrets (**Settings → Secrets → Actions**):  
-Generate at [npmjs.com/settings/tokens](https://www.npmjs.com/settings/tokens) — choose **Automation** type.
+The publish job uses [npm Trusted Publishing](https://docs.npmjs.com/trusted-publishers) (OIDC), so no `NPM_TOKEN` secret is needed. One-time setup on npmjs.com, under **@kieksme/hashnode-mcp → Settings → Trusted Publisher**:
+
+- Provider: **GitHub Actions**
+- Organization or user: `kieksme`
+- Repository: `mcp-hashnode`
+- Workflow filename: `release.yml` (must match exactly; leave *Environment* empty)
+
+The workflow runs on a GitHub-hosted runner with Node 24 and publishes with npm 11.5.1 (`npm publish --provenance`).
 
 ## License
 
