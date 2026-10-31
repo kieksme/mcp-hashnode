@@ -1,7 +1,7 @@
 {
   "name": "@kieksme/hashnode-mcp",
   "mcpName": "io.github.kieksme/hashnode-mcp",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "MCP server for the Hashnode GraphQL API — create drafts, publish posts, manage your blog via Claude",
   "type": "module",
   "main": "dist/index.js",
